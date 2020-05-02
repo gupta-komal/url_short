@@ -72,10 +72,12 @@ def search_result(keyword, resp):
     results = normalised_response(db.engine.execute(text(
         "SELECT original_url, short_url, visits as total_visits FROM links WHERE original_url like :keyword"), ({"keyword": keyword})
     ))
-    resp['status'] = 0
-    resp['desc'] = "No result found"
-    resp['search_result'] = results
-    return results
+    if not results:
+        resp['status'] = 0
+        resp['desc'] = "No result found"
+    resp['payload'] = results
+    print(resp)
+    return resp
 
 
 def stats_result(short_url, resp):
