@@ -99,5 +99,5 @@ def stats_result(short_url, resp):
     resp["payload"]["original_url"] = results[0].get("original_url")
     resp["payload"]["short_url"] = results[0].get("short_url")
     resp["payload"]["total_visits"] = results[0].get("total_visits")
-    resp["payload"]["last_one_hour_visits"] = meta_results[0].get("last_visits")
+    resp["payload"]["last_one_hour_visits"] = meta_results[0].get("last_visits") if meta_results else 0
     return resp
