@@ -76,12 +76,10 @@ def search_result(keyword, resp):
         resp['status'] = 0
         resp['desc'] = "No result found"
     resp['payload'] = results
-    print(resp)
     return resp
 
 
 def stats_result(short_url, resp):
-    print(short_url)
     results = normalised_response(db.engine.execute(text(
         "SELECT id, original_url, short_url, visits as total_visits FROM links WHERE short_url=:short_url"),
         ({"short_url": short_url})
@@ -91,9 +89,7 @@ def stats_result(short_url, resp):
         resp['desc'] = "Data not found"
         return resp
     current_time = DT.datetime.now()
-    print(current_time)
     current_time_one_hour = current_time - relativedelta(hours=1)
-    print(current_time_one_hour)
     current_ts = current_time.timestamp()
     current_one_hour_ts = current_time_one_hour.timestamp()
     meta_results = normalised_response(db.engine.execute(text(
